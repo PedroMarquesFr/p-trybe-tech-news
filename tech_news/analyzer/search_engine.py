@@ -29,6 +29,13 @@ print(search_by_date("2020-11-23"))
 
 def search_by_source(source):
     """Seu código deve vir aqui"""
+    news = database.search_news(
+        {"sources": {"$elemMatch": {"$regex": source, "$options": "i"}}},
+    )
+    result = []
+    for single_news in news:
+        result.append((single_news["title"], single_news["url"]))
+    return result
 
 
 def search_by_category(category):
