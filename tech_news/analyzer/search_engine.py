@@ -2,13 +2,17 @@ from tech_news import database
 import datetime
 
 
-def search_by_title(title):
-    """Seu código deve vir aqui"""
-    news = database.find_news_by_title(title)
+def return_title_url(news):
     result = []
     for single_news in news:
         result.append((single_news["title"], single_news["url"]))
     return result
+
+
+def search_by_title(title):
+    """Seu código deve vir aqui"""
+    news = database.find_news_by_title(title)
+    return return_title_url(news)
 
 
 def search_by_date(date):
@@ -16,25 +20,16 @@ def search_by_date(date):
     try:
         assert datetime.datetime.strptime(date, "%Y-%m-%d")
         news = database.search_news({"timestamp": {"$regex": date}})
-        result = []
-        for single_news in news:
-            result.append((single_news["title"], single_news["url"]))
-        return result
+        return return_title_url(news)
     except ValueError:
         raise ValueError("Data inválida")
-
-
-print(search_by_date("2020-11-23"))
 
 
 def search_on_generic_list(type="sources", key=""):
     news = database.search_news(
         {type: {"$elemMatch": {"$regex": key, "$options": "i"}}},
     )
-    result = []
-    for single_news in news:
-        result.append((single_news["title"], single_news["url"]))
-    return result
+    return return_title_url(news)
 
 
 def search_by_source(source):
