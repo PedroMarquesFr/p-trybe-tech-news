@@ -27,10 +27,9 @@ def search_by_date(date):
 print(search_by_date("2020-11-23"))
 
 
-def search_by_source(source):
-    """Seu código deve vir aqui"""
+def search_on_generic_list(type="sources", key=""):
     news = database.search_news(
-        {"sources": {"$elemMatch": {"$regex": source, "$options": "i"}}},
+        {type: {"$elemMatch": {"$regex": key, "$options": "i"}}},
     )
     result = []
     for single_news in news:
@@ -38,5 +37,9 @@ def search_by_source(source):
     return result
 
 
+def search_by_source(source):
+    return search_on_generic_list(key=source)
+
+
 def search_by_category(category):
-    """Seu código deve vir aqui"""
+    return search_on_generic_list(type="categories", key=category)
