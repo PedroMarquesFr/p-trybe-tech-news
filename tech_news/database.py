@@ -1,5 +1,6 @@
 from pymongo import MongoClient
 from decouple import config
+import re
 
 DB_HOST = config("DB_HOST", default="localhost")
 DB_PORT = config("DB_PORT", default="27017")
@@ -23,6 +24,15 @@ def insert_or_update(notice):
 
 def find_news():
     return list(db.news.find({}, {"_id": False}))
+
+
+def find_news_by_title(title):
+    return list(
+        db.news.find(
+            {"title": {"$regex": title, "$options": "i"}},
+            {"_id": 0, "title": 1, "url": 1},
+        )
+    )
 
 
 def search_news(query):
