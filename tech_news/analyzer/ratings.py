@@ -24,8 +24,9 @@ def top_5_news():
 def top_5_categories():
     """Seu código deve vir aqui"""
     news = database.top_5_categories()
+    if len(news) == 0:
+        return []
     print(news)
-    return return_title_url(news)
+    print([obj["categories"] for obj in news])
+    return [obj["categories"] for obj in news]
 
-
-print(top_5_categories())

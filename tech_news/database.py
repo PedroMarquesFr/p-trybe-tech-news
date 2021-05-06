@@ -62,6 +62,8 @@ def top_5_categories():
                     }
                 },
                 {"$unwind": "$categories"},
+                {"$sort": {"categories": 1}},
+                {"$limit": 5},
             ]
         )
     )
