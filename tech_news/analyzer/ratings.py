@@ -29,4 +29,3 @@ def top_5_categories():
     print(news)
     print([obj["categories"] for obj in news])
     return [obj["categories"] for obj in news]
-
