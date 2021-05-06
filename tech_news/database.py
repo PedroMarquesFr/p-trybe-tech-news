@@ -52,5 +52,20 @@ def aggregate_most_engage():
     )
 
 
+def top_5_categories():
+    return list(
+        db.news.aggregate(
+            [
+                {
+                    "$project": {
+                        "categories": 1,
+                    }
+                },
+                {"$unwind": "$categories"},
+            ]
+        )
+    )
+
+
 def search_news(query):
     return list(db.news.find(query))

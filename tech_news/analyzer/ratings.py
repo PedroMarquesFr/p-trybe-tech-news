@@ -23,3 +23,9 @@ def top_5_news():
 
 def top_5_categories():
     """Seu código deve vir aqui"""
+    news = database.top_5_categories()
+    print(news)
+    return return_title_url(news)
+
+
+print(top_5_categories())
